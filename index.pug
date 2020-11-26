@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drag and Drop</title>
-</head>
-<body>
-    <div class="drag-wrapper">
-        <div id="1" class="card">
-            <div class="card-img-cont">
-                <img class="card-img" src="images/WhatsApp Image 2020-02-09 at 12.32.39.jpeg" alt="">
-            </div>
-            <button type="button" class="card-delete-btn" onclick="cardDeleteHandler(event)">X</button>
-        </div>
+extends layout
 
-        <div id="2" class="card">
+block content
+  .drag-wrapper
+      .card(id="1")
+        .card-img-cont
+          .card-img(src="images/WhatsApp Image 2020-02-09 at 12.32.39.jpeg" alt="")
+            button(type="button" class="card-delete-btn" onclick="cardDeleteHandler(event)")X
+
+      <div id="2" class="card">
             <div class="card-img-cont">
                 <img class="card-img" src="images/WhatsApp Image 2020-02-09 at 12.33.16.jpeg" alt="">
             </div>
@@ -56,6 +48,29 @@
     </div>
     
     
-    <script src="script.js"></script>
-</body>
-</html>
+  script(src='/javascripts/pdfOutput.js')
+  script.
+    //Take image array and call pdf functions from script.js based on which format was requested
+    if (!{JSON.stringify(type)} === 'booklet'){
+      var doc = autozineFirstPageLandscape(); //init document and make first page, returns pdf doc object
+    
+      outputSpreads(!{JSON.stringify(images)}, doc).then(resolve => {
+        doc = resolve;
+        doc.viewerPreferences({
+        'FitWindow': true
+        });
+        //doc.setDisplayMode('fullpage', 'tworight', 'UseThumbs');
+        doc.save('autozined.pdf'); //export
+      }) 
+    } else if (!{JSON.stringify(type)} === 'onePage') {
+      var doc = autozineFirstPage(); //init document and make first page, save doc object
+  
+      outputOnePageZine(!{JSON.stringify(images)}, doc).then(resolve => {
+        doc = resolve;
+        doc.viewerPreferences({
+          'FitWindow': true
+        });
+        //doc.setDisplayMode('fullpage', 'tworight', 'UseThumbs');
+        doc.save('autozined.pdf'); //export
+      })
+    }
