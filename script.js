@@ -63,74 +63,35 @@ function onDragOver(e){
         let middleX, distanceFromMiddleX;
         if (e.target.width) {
             middleX = e.target.x + (e.target.width/2);
-            console.log("middleX: ", middleX)
-            distanceFromMiddleX = e.clientX - middleX
-            console.log("clientX: ", e.clientX)
+            console.log("middleX: ", middleX);
+            distanceFromMiddleX = e.clientX - middleX;
+            console.log("clientX: ", e.clientX);
         } else {
             middleX = e.clientX;
         }
         // if right of middle, place before, else if left, place after
         if (distanceFromMiddleX <= 0) {
             parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
+            paddingCalc();
         } else if(distanceFromMiddleX >= 0) {
-            e.target.parentElement.parentElement.after(currentDrag)
+            e.target.parentElement.parentElement.after(currentDrag);
+            paddingCalc();
         }
     }
 }
 
 // TEST PADDING CALC
- function paddingCalc(type) {
+ function paddingCalc() {
     let cards = document.querySelectorAll('.card');
-    if (type === "booklet") {
-        cards.forEach((card,index)=>{
-            if (index % 2 === 0) {
-                card.style.paddingRight = '0px';
-                card.style.paddingLeft = '10px'; 
-            } else {
-                card.style.paddingRight = '10px';
-                card.style.paddingLeft = '0px'; 
-            }    
-        });
-    } else if (type === "onePage") {
-        cards.forEach((card,index)=>{
-
-            let wrapper = document.querySelector('.drag-wrapper');
-            
-            wrapper.style.display = 'none'; //flexbox with everything in the center with no padding and with two rows: justify content center set flexbox container to smaller than total of items
-            // better way is to use css grid padd the whole grid and align items and justify items
-            // might need switch or might just use flexbox styles
-            // switch(index) {
-            //     case 0:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '10px';
-            //         break;
-            //     case 1:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '0px';
-            //         break;
-            //     case 2:
-            //         card.style.paddingRight = '10px';
-            //         card.style.paddingLeft = '0px';
-            //         break;
-            //     case 3:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '10px';
-            //         break;
-            //     case 4:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '10px';
-            //         break;
-            //     case 5:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '10px';
-            //         break;
-            //     case 6:
-            //         card.style.paddingRight = '0px';
-            //         card.style.paddingLeft = '10px';
-            //         break;
-            // }    
-        });
-    }
+    cards.forEach((card,index)=>{
+        if (index % 2 === 0) {
+            card.style.marginRight = '0px';
+            card.style.marginLeft = '5vw'; 
+        } else {
+            card.style.marginRight = '5vw';
+            card.style.marginLeft = '0px'; 
+        }    
+    });
 }
 
 
@@ -202,4 +163,5 @@ function handleFiles() {
 
 
 /*         ON LOAD         */
-addElementListeners()
+addElementListeners();
+paddingCalc();

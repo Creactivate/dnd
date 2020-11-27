@@ -10,23 +10,24 @@ body {
 
 .drag-wrapper {
     display: grid;
-    grid-template-rows: min-content min-content;
-    grid-template-columns: min-content min-content min-content;
-    padding: 10vh 25vw;
-    
+    grid-template-columns: min-content min-content min-content min-content;
+    padding: 10vh;
+    place-content: center;
 }
 
 .card {
     position: relative;
+    padding-bottom: 10vh;
 }
 
 .card-img-cont {
-    height: 20vh;
+    width: 12vw;
 }
 
 .card-img {
-    height: 100%;
+    width: 100%;
     position: relative;
+    margin: 0;
 }
 
 .add-new-card {
@@ -50,8 +51,9 @@ body {
     height: 25px;
     text-align: center;
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: -10px;
+    right: -10px;
+    z-index: 9;
 }
 
 .add-new-overlay {
