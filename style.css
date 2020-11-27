@@ -5,20 +5,18 @@ body,html,* {
 
 body {
     background-color: whitesmoke;
-    height: 80vh;
-    padding: 10vh 10vh;
+    height: 100vh;
 }
 
 .drag-wrapper {
-    display: flex;
-    height: 100%;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-rows: min-content min-content;
+    grid-template-columns: min-content min-content min-content;
+    padding: 10vh 25vw;
+    
 }
 
 .card {
-    padding: 20px;
     position: relative;
 }
 
