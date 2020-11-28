@@ -25,6 +25,7 @@ function addElementListeners() {
         img.addEventListener('dragend', (event) => {onDragEnd(event)});
         img.ondragover = onDragOver;
         img.ondragleave = onDragLeave;
+        img.ondrop = onDrop;
     }) 
 }
 
@@ -58,7 +59,10 @@ function onDragEnd(e){
 
 function onDragOver(e){
     e.preventDefault();
-    // if dragged over one of the desired child nodes
+    e.target.style.opacity = 0.5;
+}
+
+function onDrop(e) {
     if (e.target.parentElement.parentElement.parentElement === parent) {
         // if currently dragged item is not the same as the drop target
         if (currentDrag !== e.target.parentElement.parentElement){
@@ -66,13 +70,10 @@ function onDragOver(e){
             let before = currentDrag.nextElementSibling;
             // if the current dragged item has a previous do this (if not the first item)
             if (previous) {
-                console.log(previous);
                 parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
                 previous.after(e.target.parentElement.parentElement);
-                moved = e.target.parentElement.parentElement;
                 paddingCalc();
             } else { // if current dragged item doesn't have previous do this (when dragging the first item)
-                console.log(before);
                 parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
                 // if dragging first item onto second then swap
                 if (before === e.target.parentElement.parentElement) {
@@ -80,81 +81,16 @@ function onDragOver(e){
                 } else { // else if dragging the first item to any other item swap those
                     before.before(e.target.parentElement.parentElement);
                 }
-                moved = e.target.parentElement.parentElement;
                 paddingCalc();
             }
-            
-            // // work out if mouse is in left or right portion of element.
-            // let middleX, distanceFromMiddleX;
-            // if (e.target.width) {
-            //     middleX = e.target.x + (e.target.width/2);
-            //     console.log("middleX: ", middleX);
-            //     distanceFromMiddleX = e.clientX - middleX;
-            //     console.log("clientX: ", e.clientX);
-            // } else {
-            //     middleX = e.clientX;
-            // }
-            // // if right of middle, place before, else if left, place after
-            // if (distanceFromMiddleX <= 0) {
-            //     parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
-            //     paddingCalc();
-            // } else if(distanceFromMiddleX >= 0) {
-            //     e.target.parentElement.parentElement.after(currentDrag);
-            //     paddingCalc();
-            // }
         }
     }
+    e.target.style.opacity = 1;
 }
 
 function onDragLeave(e) {
     console.log('leave');
-    // currentDrag;
-    // moved;
-    // if (e.target.parentElement.parentElement.parentElement === parent) {
-    //     // if currently dragged item is not the same as the drop target
-    //     if (currentDrag !== e.target.parentElement.parentElement){
-    //         let previous = currentDrag.previousElementSibling;
-    //         let before = currentDrag.nextElementSibling;
-    //         // if the current dragged item has a previous do this (if not the first item)
-    //         if (previous) {
-    //             console.log(previous);
-    //             parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
-    //             previous.after(e.target.parentElement.parentElement);
-    //             moved = e.target.parentElement.parentElement;
-    //             paddingCalc();
-    //         } else { // if current dragged item doesn't have previous do this (when dragging the first item)
-    //             console.log(before);
-    //             parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
-    //             // if dragging first item onto second then swap
-    //             if (before === e.target.parentElement.parentElement) {
-    //                 currentDrag.before(e.target.parentElement.parentElement);
-    //             } else { // else if dragging the first item to any other item swap those
-    //                 before.before(e.target.parentElement.parentElement);
-    //             }
-    //             moved = e.target.parentElement.parentElement;
-    //             paddingCalc();
-    //         }
-            
-    //         // // work out if mouse is in left or right portion of element.
-    //         // let middleX, distanceFromMiddleX;
-    //         // if (e.target.width) {
-    //         //     middleX = e.target.x + (e.target.width/2);
-    //         //     console.log("middleX: ", middleX);
-    //         //     distanceFromMiddleX = e.clientX - middleX;
-    //         //     console.log("clientX: ", e.clientX);
-    //         // } else {
-    //         //     middleX = e.clientX;
-    //         // }
-    //         // // if right of middle, place before, else if left, place after
-    //         // if (distanceFromMiddleX <= 0) {
-    //         //     parent.insertBefore(currentDrag, e.target.parentElement.parentElement);
-    //         //     paddingCalc();
-    //         // } else if(distanceFromMiddleX >= 0) {
-    //         //     e.target.parentElement.parentElement.after(currentDrag);
-    //         //     paddingCalc();
-    //         // }
-    //     }
-    // }
+    e.target.style.opacity = 1;
 }
 
 // TEST PADDING CALC
